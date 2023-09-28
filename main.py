@@ -8,7 +8,6 @@ from flask_sqlalchemy import SQLAlchemy
 from functools import wraps
 from werkzeug.security import generate_password_hash, check_password_hash
 from sqlalchemy.orm import relationship
-import gunicorn
 from forms import CreatePostForm,RegisterForm,LoginForm,CommentForm
 import os
 from dotenv import load_dotenv
