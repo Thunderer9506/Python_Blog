@@ -103,11 +103,8 @@ Python_Blog/
 ## Live Site
 
 **Live Demo:**  
-*(Add your live site URL here, e.g., Heroku, Netlify, Railway, or another host)*
-
-Example:
 ```
-https://your-app-name.herokuapp.com
+https://python-blog-gzvh.onrender.com/
 ```
 
 ---
