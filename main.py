@@ -10,13 +10,16 @@ from werkzeug.security import generate_password_hash, check_password_hash
 from sqlalchemy.orm import relationship
 from forms import CreatePostForm,RegisterForm,LoginForm,CommentForm
 import os
+from dotenv import load_dotenv
+
+load_dotenv()
 
 app = Flask(__name__)
-app.config['SECRET_KEY'] = os.environ.get('FLASK_KEY')
+app.config['SECRET_KEY'] = os.getenv('FLASK_KEY')
 ckeditor = CKEditor(app)
 login_manager = LoginManager()
 login_manager.init_app(app)
-Bootstrap5(app)
+boostrap = Bootstrap5(app)
 gravatar = Gravatar(app,
                     size=100,
                     rating='g',
@@ -28,7 +31,7 @@ gravatar = Gravatar(app,
 
 
 # CONNECT TO DB
-app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get("DB_URI","sqlite:///posts.db")
+app.config['SQLALCHEMY_DATABASE_URI'] = os.getenv("SQLITE_URI","sqlite:///posts.db")
 db = SQLAlchemy()
 db.init_app(app)
 
@@ -98,10 +101,7 @@ def register():
             new_post = User(
             name=form.name.data,
             email=email,
-            password=generate_password_hash(
-                str(form.password.data),
-                "sha256",8
-            )
+            password=generate_password_hash(str(form.password.data), method="pbkdf2:sha256", salt_length=8)
             )
             db.session.add(new_post)
             db.session.commit()
@@ -222,4 +222,4 @@ def contact():
 
 
 if __name__ == "__main__":
-    app.run(debug=False)
+    app.run(debug=False,host='0.0.0.0')
