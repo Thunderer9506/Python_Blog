@@ -13,7 +13,7 @@ if file_path.exists():
         "from flask import current_app, has_request_context, request, g"
     )
     # Replace _request_ctx_stack usage
-    text = text.replace("_request_ctx_stack.top", "request if has_request_context() else None")
+    text = text.replace("_request_ctx_stack", "g")
     file_path.write_text(text)
     print("✅ Patched flask_gravatar for Flask 3.x")
 else:
